@@ -9,8 +9,8 @@ var fs = require('fs');
 var system = require('system');
 var cryptojs = require('cryptojs').create();
 
-var jqueryPath = '/home/cap/dev/casperjs-1-1-beta3/modules/jquery.js';
-var jqueryXpathPath = '/home/cap/dev/casperjs-1-1-beta3/modules/jquery.xpath.js';
+var jqueryPath = '/home/cap/dev/casperjs-ainkov/modules/jquery.js';
+var jqueryXpathPath = '/home/cap/dev/casperjs-ainkov/modules/jquery.xpath.js';
 
 exports.jqueryPath = jqueryPath;
 exports.jqueryXpathPath = jqueryXpathPath;
