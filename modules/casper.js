@@ -150,6 +150,7 @@ var Casper = function Casper(options) {
     this.currentHTTPStatus = null;
     this.history = [];
     this.loadInProgress = false;
+    this.downloadInProgress = false;
     this.navigationRequested = false;
     this.browserInitializing = false;
     this.logFormats = {};
@@ -391,7 +392,7 @@ Casper.prototype.captureSelector = function captureSelector(targetFile, selector
  */
 Casper.prototype.checkStep = function checkStep(self, onComplete) {
     "use strict";
-    if (self.pendingWait || self.loadInProgress || self.navigationRequested || self.browserInitializing) {
+    if (self.pendingWait || self.loadInProgress || self.navigationRequested || self.browserInitializing || self.downloadInProgress) {
         return;
     }
     var step = self.steps[self.step++];
