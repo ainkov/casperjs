@@ -22,7 +22,7 @@ exports.create = function(casper) {
             clientScripts : [jqueryPath, jqueryXpathPath],
             verbose : true,
             logLevel : "debug",
-            stepTimeout : 60000
+            //stepTimeout : 60000
         });
     }
 
@@ -173,6 +173,11 @@ CDP.prototype.setDownload = function(filename, callback) {
 
             cas.options.stepTimeout = 60000;
             cas.downloadInProgress = false;
+
+            cas.page.onFileDownload = function() {};
+            cas.page.onFileMD5 = function() {};
+            cas.page.onFileDownloadFinished = function() {};
+            //cas.page.stop();
         };
 
         cas.page.onFileDownloadError = function() {
@@ -182,6 +187,11 @@ CDP.prototype.setDownload = function(filename, callback) {
 
             cas.options.stepTimeout = 60000;
             cas.downloadInProgress = false;
+
+            cas.page.onFileDownload = function() {};
+            cas.page.onFileMD5 = function() {};
+            cas.page.onFileDownloadFinished = function() {};
+            cas.page.stop();
         };
 
         cas.page.onFileMD5 = function(hashsum) {
