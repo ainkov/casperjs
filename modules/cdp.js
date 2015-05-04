@@ -15,6 +15,9 @@ var jqueryXpathPath = '/home/cap/dev/casperjs/modules/jquery.xpath.js';
 exports.jqueryPath = jqueryPath;
 exports.jqueryXpathPath = jqueryXpathPath;
 
+exports.jquery = jqueryPath;
+exports.jqueryXpath = jqueryXpathPath;
+
 exports.create = function(casper) {
 
     if (casper === undefined) {
@@ -122,6 +125,12 @@ CDP.prototype.selectMultipleByText = function (selector, values) {
 
 }
 
+function disableDownload(cas) {
+    cas.page.onFileDownload = function() {};
+    cas.page.onFileMD5 = function() {};
+    cas.page.onFileDownloadFinished = function() {};
+}
+
 CDP.prototype.setDownload = function(filename, callback) {
 
     var cdp = this;
@@ -140,6 +149,7 @@ CDP.prototype.setDownload = function(filename, callback) {
             if (callback && !callback(responseData)) {
                 console.log("Download stopped due to callback");
                 cas.downloadInProgress = false;
+                disableDownload(cas);
                 return;
             }
 
@@ -174,10 +184,7 @@ CDP.prototype.setDownload = function(filename, callback) {
             cas.options.stepTimeout = 60000;
             cas.downloadInProgress = false;
 
-            cas.page.onFileDownload = function() {};
-            cas.page.onFileMD5 = function() {};
-            cas.page.onFileDownloadFinished = function() {};
-            //cas.page.stop();
+            disableDownload(cas);
         };
 
         cas.page.onFileDownloadError = function() {
@@ -188,10 +195,7 @@ CDP.prototype.setDownload = function(filename, callback) {
             cas.options.stepTimeout = 60000;
             cas.downloadInProgress = false;
 
-            cas.page.onFileDownload = function() {};
-            cas.page.onFileMD5 = function() {};
-            cas.page.onFileDownloadFinished = function() {};
-            cas.page.stop();
+            disableDownload(cas);
         };
 
         cas.page.onFileMD5 = function(hashsum) {
